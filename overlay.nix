@@ -11,7 +11,16 @@ let
     { inherit dapptoolsOverrides; };
 
   dappPkgsVersions = mapAttrs
-    (_: dappPkgsSrc: import dappPkgsSrc {})
+    (_: dappPkgsSrc: (import dappPkgsSrc {
+      overrides = self: super: {
+        semver-range = super.semver-range.override {
+          src = super.fetchurl {
+            url = "https://hackage.haskell.org/package/semver-range-0.2.8/semver-range-0.2.8.tar.gz";
+            sha256 = "1df663zkcf7y7a8cf5llf111rx4bsflhsi3fr1f840y4kdgxlvkf";
+          };
+        };
+      };
+    }))
     dappSources;
 
   dappPkgs = if dappPkgsVersions ? current
