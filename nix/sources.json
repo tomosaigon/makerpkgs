@@ -35,16 +35,16 @@
         "url": "https://github.com/nmattia/niv/archive/9d35b9e4837ab88517210b1701127612c260eccf.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nixpkgs": {
+        "nixpkgs": {
         "branch": "release-20.03",
         "description": "Nix Packages collection",
         "homepage": "",
-        "owner": "NixOS",
+        "owner": "tomosaigon",
         "repo": "nixpkgs",
-        "rev": "ea553d8c67c6a718448da50826ff5b6916dc9c59",
-        "sha256": "0g9smv36sk42rfyzi8wyq2wl11c5l0qaldij1zjdj60s57cl3wgj",
+        "rev": "28498cc08a34a41c8e3693c7c75914cefd135583",
+        "sha256": "02alza8cg6l7j7dh95pbi3fvkz5acm1bmpbprz5gn6mh8k78rpnn",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/ea553d8c67c6a718448da50826ff5b6916dc9c59.tar.gz",
+        "url": "https://github.com/tomosaigon/nixpkgs/archive/28498cc08a34a41c8e3693c7c75914cefd135583.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "sethret": {
