@@ -58,11 +58,31 @@ let
         )
     );
 
+  # Global override for semver-range to avoid dead GitHub URL
+  semverOverlay = self: super: {
+    haskellPackages = super.haskellPackages.override (old: {
+      overrides = super.lib.composeExtensions
+        (old.overrides or (_: _: {}))
+        (self-hs: super-hs: {
+          semver-range =
+            (super-hs.semver-range.override {})
+              .overrideAttrs (oldAttrs: {
+                src = super.fetchurl {
+                  url = "https://hackage.haskell.org/package/semver-range-0.2.8/semver-range-0.2.8.tar.gz";
+                  sha256 = "1df663zkcf7y7a8cf5llf111rx4bsflhsi3fr1f840y4kdgxlvkf";
+                };
+              });
+        });
+    });
+  };
   # The set of packages used when specs are fetched using non-builtins.
   mkPkgs = sources: system:
     let
       sourcesNixpkgs =
-        import (builtins_fetchTarball { inherit (sources.nixpkgs) url sha256; }) { inherit system; };
+        import (builtins_fetchTarball { inherit (sources.nixpkgs) url sha256; }) {
+          inherit system;
+          overlays = [ semverOverlay ];
+        };
       hasNixpkgsPath = builtins.any (x: x.prefix == "nixpkgs") builtins.nixPath;
       hasThisAsNixpkgsPath = <nixpkgs> == ./.;
     in
@@ -76,7 +96,7 @@ let
             Please specify either <nixpkgs> (through -I or NIX_PATH=nixpkgs=...) or
             add a package called "nixpkgs" to your sources.json.
           '';
-
+          
   # The actual fetching function.
   fetch = pkgs: name: spec:
 
