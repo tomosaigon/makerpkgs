@@ -11,8 +11,8 @@ rec {
 
   master-20220406 = fetchTarball {
     name = "dapptools-master-20220406";
-    url = "https://github.com/tomosaigon/dapptools/archive/e56cf91ebfa0821980d13840c995ddcd1052ec23.tar.gz";
-    sha256 = "12pqa11yz79vlk0cljz1im9wd6vq00y9534ax15k52k5p0yc5d0n";
+    url = "https://github.com/tomosaigon/dapptools/archive/6d5540987397443015e54956833a8890443af5d1.tar.gz";
+    sha256 = "0x6jyz2h36cxg4q0sjvx0ij86xy8n5vhklhyafba3ar62xbk97dg";
   };
 
   master-20220325 = fetchTarball {
