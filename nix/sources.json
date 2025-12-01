@@ -39,10 +39,10 @@
         "branch": "release-20.03",
         "description": "Nix Packages collection",
         "homepage": "",
-        "owner": "NixOS",
+        "owner": "tomosaigon",
         "repo": "nixpkgs",
-        "rev": "ea553d8c67c6a718448da50826ff5b6916dc9c59",
-        "sha256": "0g9smv36sk42rfyzi8wyq2wl11c5l0qaldij1zjdj60s57cl3wgj",
+        "rev": "f13427757e535d40c9f7e8e3207227599360d24a",
+        "sha256": ""
         "type": "tarball",
         "url": "https://github.com/NixOS/nixpkgs/archive/ea553d8c67c6a718448da50826ff5b6916dc9c59.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
