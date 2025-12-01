@@ -42,7 +42,7 @@
         "owner": "tomosaigon",
         "repo": "nixpkgs",
         "rev": "f13427757e535d40c9f7e8e3207227599360d24a",
-        "sha256": ""
+        "sha256": "0lww516narff8336v6zbkaifs4rc4iyyr3ns2ykyqngwrsymv851"
         "type": "tarball",
         "url": "https://github.com/NixOS/nixpkgs/archive/ea553d8c67c6a718448da50826ff5b6916dc9c59.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
