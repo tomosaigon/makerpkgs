@@ -36,16 +36,16 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "release-20.03",
-        "description": "Nix Packages collection",
-        "homepage": "",
-        "owner": "tomosaigon",
-        "repo": "nixpkgs",
-        "rev": "345ff18c99af958afdbd57f077aae9af4000e864",
-        "sha256": "0g9smv36sk42rfyzi8wyq2wl11c5l0qaldij1zjdj60s57cl3wgj",
-        "type": "tarball",
-        "url": "https://github.com/tomosaigon/nixpkgs/archive/345ff18c99af958afdbd57f077aae9af4000e864.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+      "branch": "compat/mcd-20.03-semver",
+      "description": "Nix Packages collection",
+      "homepage": "",
+      "owner": "tomosaigon",
+      "repo": "nixpkgs",
+      "rev": "f13427757e535d40c9f7e8e3207227599360d24a",
+      "sha256": "0lww516narff8336v6zbkaifs4rc4iyyr3ns2ykyqngwrsymv851",
+      "type": "tarball",
+      "url": "https://github.com/tomosaigon/nixpkgs/archive/f13427757e535d40c9f7e8e3207227599360d24a.tar.gz",
+      "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "sethret": {
         "branch": "master",
