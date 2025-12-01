@@ -73,4 +73,16 @@ let
   };
 in (makerpkgs { inherit dapptoolsOverrides; }) // {
   makerpkgs = makeOverridable makerpkgs { inherit dapptoolsOverrides; };
+
+  # Fix semver-range-0.2.8 globally for the default Haskell package set.
+  haskellPackages = super.haskellPackages.override (old: {
+    overrides = self: super: (old.overrides or {}) // {
+      semver-range = super.semver-range.overrideAttrs (attrs: {
+        src = super.fetchurl {
+          url = "https://hackage.haskell.org/package/semver-range-0.2.8/semver-range-0.2.8.tar.gz";
+          sha256 = "1df663zkcf7y7a8cf5llf111rx4bsflhsi3fr1f840y4kdgxlvkf";
+        };
+      });
+    };
+  });
 }
