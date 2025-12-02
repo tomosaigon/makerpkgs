@@ -10,21 +10,41 @@ let
     ./dapptools-overlay.nix
     { inherit dapptoolsOverrides; };
 
+
   dappPkgsVersions = mapAttrs
     (_: dappPkgsSrc:
       import dappPkgsSrc {
         overlays = [
           (self': super': {
 
-            # 1) Intercept the broken GitHub tarball for semver-range
-            fetchzip = args@{ url ? null, ... }:
-              if url == "https://github.com/dmjio/semver-range/archive/patch-1.tar.gz"
-              then super'.fetchzip (args // {
-                url = "https://hackage.haskell.org/package/semver-range-0.2.8/semver-range-0.2.8.tar.gz";
-              })
-              else super'.fetchzip args;
+            # Intercept the broken semver-range GitHub tarball used by dapptools/hevm
+            fetchzip = args:
+              let
+                badUrl =
+                  "https://github.com/dmjio/semver-range/archive/patch-1.tar.gz";
 
-            # 2) Keep your existing Haskell package override for semver-range
+                hackageUrl =
+                  "https://hackage.haskell.org/package/semver-range-0.2.8/semver-range-0.2.8.tar.gz";
+
+                # Read url/urls without changing args yet
+                url  = args.url  or "";
+                urls = args.urls or [];
+
+                # Normalise to one list for checking
+                urlsList =
+                  (if url != "" then [ url ] else []) ++ urls;
+
+                needsFix = builtins.elem badUrl urlsList;
+
+                extra =
+                  if needsFix then {
+                    # Force both url and urls to the Hackage tarball
+                    url  = hackageUrl;
+                    urls = [ hackageUrl ];
+                  } else {};
+              in
+                super'.fetchzip (args // extra);
+
             haskellPackages = super'.haskellPackages.override (old: {
               overrides = super'.lib.composeExtensions
                 (old.overrides or (_: _: {}))
@@ -33,8 +53,10 @@ let
                     (super-hs.semver-range.override {})
                       .overrideAttrs (oldAttrs: {
                         src = super'.fetchurl {
-                          url = "https://hackage.haskell.org/package/semver-range-0.2.8/semver-range-0.2.8.tar.gz";
-                          sha256 = "1df663zkcf7y7a8cf5llf111rx4bsflhsi3fr1f840y4kdgxlvkf";
+                          url =
+                            "https://hackage.haskell.org/package/semver-range-0.2.8/semver-range-0.2.8.tar.gz";
+                          sha256 =
+                            "1df663zkcf7y7a8cf5llf111rx4bsflhsi3fr1f840y4kdgxlvkf";
                         };
                       });
                 });
@@ -45,7 +67,6 @@ let
       }
     )
     dappSources;
-
   dappPkgs = if dappPkgsVersions ? current
     then dappPkgsVersions.current
     else dappPkgsVersions.default
