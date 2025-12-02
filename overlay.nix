@@ -15,6 +15,16 @@ let
       import dappPkgsSrc {
         overlays = [
           (self': super': {
+
+            # 1) Intercept the broken GitHub tarball for semver-range
+            fetchzip = args@{ url ? null, ... }:
+              if url == "https://github.com/dmjio/semver-range/archive/patch-1.tar.gz"
+              then super'.fetchzip (args // {
+                url = "https://hackage.haskell.org/package/semver-range-0.2.8/semver-range-0.2.8.tar.gz";
+              })
+              else super'.fetchzip args;
+
+            # 2) Keep your existing Haskell package override for semver-range
             haskellPackages = super'.haskellPackages.override (old: {
               overrides = super'.lib.composeExtensions
                 (old.overrides or (_: _: {}))
@@ -29,6 +39,7 @@ let
                       });
                 });
             });
+
           })
         ];
       }
