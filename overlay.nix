@@ -79,4 +79,23 @@ let
 in
   (makerpkgs { inherit dapptoolsOverrides; }) // {
     makerpkgs = makeOverridable makerpkgs { inherit dapptoolsOverrides; };
+
+    # Globally override the Haskell semver-range package to use the Hackage tarball,
+    # so any consumer (hevm, dapp, etc.) avoids the dead dmjio/semver-range@patch-1 GitHub tag.
+    haskellPackages = super.haskellPackages.override (old: {
+      overrides = lib.composeExtensions
+        (old.overrides or (_: _: {}))
+        (self-hs: super-hs: {
+          semver-range =
+            (super-hs.semver-range.override {})
+              .overrideAttrs (oldAttrs: {
+                src = builtins.trace
+                  "SEMRANGE-HASKELL-OVERRIDE: using Hackage semver-range-0.2.8"
+                  (super.fetchurl {
+                    url    = "https://hackage.haskell.org/package/semver-range-0.2.8/semver-range-0.2.8.tar.gz";
+                    sha256 = "1df663zkcf7y7a8cf5llf111rx4bsflhsi3fr1f840y4kdgxlvkf";
+                  });
+              });
+        });
+    });
   }
